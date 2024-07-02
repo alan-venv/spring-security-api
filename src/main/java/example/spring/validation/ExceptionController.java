@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,6 +14,12 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 @RestControllerAdvice
 public class ExceptionController {
+
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<CustomError> authError(AuthenticationException exception) {
+    var message = new CustomError("service", exception.getMessage());
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(message);
+  }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<List<CustomError>> invalidDTO(MethodArgumentNotValidException exception) {
