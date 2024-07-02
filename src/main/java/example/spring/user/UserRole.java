@@ -1,16 +1,16 @@
 package example.spring.user;
 
 public enum UserRole {
-    ADMIN("admin"),
-    USER("user");
+  ADMIN("admin"),
+  USER("user");
 
-    private final String role;
+  private final String role;
 
-    UserRole(String role) {
-        this.role = role;
-    }
+  UserRole(String role) {
+    this.role = role;
+  }
 
-    public String getRole() {
-        return role;
-    }
+  public String getRole() {
+    return role;
+  }
 }

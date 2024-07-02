@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/user")
 public class UserController {
 
-    @Autowired
-    private UserService service;
+  @Autowired
+  private UserService service;
 
-    @PostMapping("")
-    public ResponseEntity<UserResponseDTO> create(@RequestBody @Valid UserRequestDTO dto) {
-        var encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
-        var user = service.create(dto.login(), encryptedPassword, dto.role());
-        var response = new UserResponseDTO(user.getUsername(), user.getPassword());
+  @PostMapping("")
+  public ResponseEntity<UserResponseDTO> create(@RequestBody @Valid UserRequestDTO dto) {
+    var encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
+    var user = service.create(dto.login(), encryptedPassword, dto.role());
+    var response = new UserResponseDTO(user.getUsername(), user.getPassword());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  }
 }
